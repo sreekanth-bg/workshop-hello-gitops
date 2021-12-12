@@ -257,10 +257,10 @@ curl <url>
 ```
 git clone git@github.com:sreekanth-bg/workshop-hello-gitops.git
 git status
+git diff
 git checkout -b patch origin/master
 git add .
 git commit -m "message" file.extn
-git diff
 git pull --rebase git@github.com:sreekanth-bg/workshop-hello-gitops.git patch
 git push origin patch
 gh pr create -B master -H patch
