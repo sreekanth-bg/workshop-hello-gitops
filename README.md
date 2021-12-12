@@ -252,3 +252,15 @@ minikube service hello-gitops -n hello-gitops --url
 curl <url>
 # Hello from hello-gitops-6f7d4878c9-qg4l6
 ```
+## Git commands
+
+```
+git clone git@github.com:sreekanth-bg/workshop-hello-gitops.git
+git status
+git checkout -b patch origin/master
+git add .
+git commit -m "message" file.extn
+git diff
+git pull --rebase git@github.com:sreekanth-bg/workshop-hello-gitops.git patch
+git push origin patch
+```
