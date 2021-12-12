@@ -63,16 +63,30 @@ brew tap argoproj/tap
 brew install argoproj/tap/argocd 
 ```
 
-For this example, we will use the web UI. It can be made accessible using a port forward
+Or install the CLI with Curl Refer [official docs](https://argo-cd.readthedocs.io/en/stable/cli_installation/) for a detailed instructions.
+```
+curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+chmod +x /usr/local/bin/argocd
+```
+
+ArgoCD can be made accessible using a port forward
 ```
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-Check you have access to the web UI at http://localhost:8080 using your browser
+Via CLI
+```
+curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+chmod +x /usr/local/bin/argocd
+argocd login localhost:8080 --username admin --password <password> --insecure
+# Default password can be retrieved by running `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d `
+```
+
+Or via web UI at http://localhost:8080 using your browser
 - Username is `admin`
 - Default password can be retrieved by running `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d `
 
-You are of course encouraged to change this password
+You are of course encouraged to change this password (argocd account update-password)
 
 ## Setup DockerHub
 
@@ -188,6 +202,14 @@ git push origin master
 ## Configure ArgoCD
 
 At the end of the workflow, Kustomize manifests are referencing the newly built Docker image. We will configure ArgoCD to observe changes to Kustomize files and update the application in the K8s cluster.
+
+Create An Application via preferred declarative way (it can also be created via [cli] (https://argo-cd.readthedocs.io/en/stable/getting_started/) impreatively)
+```
+kubectl apply -f application.yaml
+# argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook
+```
+
+Or via GUI
 - Login to ArgoCD
 - See [the official documentation](https://argoproj.github.io/argo-cd/getting_started/) for a step by step guide
 - You will need to enter 
