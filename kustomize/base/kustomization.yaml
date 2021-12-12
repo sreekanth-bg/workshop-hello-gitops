@@ -8,4 +8,4 @@ namespace: hello-gitops
 images:
 - name: hello-gitops
   newName: infovein69/hello-gitops
-  newTag: 73e19bf37664376dbea19093466b80edaf932951
+  newTag: e58f2cd2d7665424041f25b0d1026d069ebd8f6c
